@@ -7,7 +7,6 @@ from dotenv import load_dotenv
 load_dotenv()
 agent_api_key = os.getenv("AGENT_API_KEY")
 agent_api_url = os.getenv("AGENT_API_URL")
-
 st.title("이메일 에이전트")
 
 if "messages" not in st.session_state:
@@ -31,6 +30,7 @@ if prompt:
         headers={"Authorization": agent_api_key},
         json={"message": prompt, "session_id": st.session_state.session_id},
     )
+    st.info(response.json())
     st.session_state.messages.append(
         {"role": "assistant", "content": response.json()["output"]}
     )
